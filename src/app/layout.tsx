@@ -1,7 +1,10 @@
-import type { Metadata } from "next";
-import { Nunito } from "next/font/google";
-import "@/styles/globals.css";
-import { cn } from "@/lib/utils";
+import type { Metadata } from "next"
+import { Nunito } from "next/font/google"
+import "@/styles/globals.css"
+import "@/styles/clerk.css"
+import { cn } from "@/lib/utils"
+import { ClerkProvider } from "@clerk/nextjs"
+import { ptBR } from "@clerk/localizations"
 
 const nunito = Nunito({
   variable: "--font-sans",
@@ -10,20 +13,21 @@ const nunito = Nunito({
 
 export const metadata: Metadata = {
   title: "Codelab",
-};
+}
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode
 }>) {
   return (
-    <html lang="pt-BR" suppressHydrationWarning>
-      <body
-        className={cn(nunito.className, "antialiased font-sans dark") }
-      >
-        {children}
-      </body>
-    </html>
-  );
+    <ClerkProvider
+      localization={ptBR}
+      appearance={{ variables: { colorPrimary: "hsl(160, 100%, 37%)" } }}
+    >
+      <html lang="pt-BR" suppressHydrationWarning>
+        <body className={cn(nunito.className, "antialiased font-sans dark")}>{children}</body>
+      </html>
+    </ClerkProvider>
+  )
 }
