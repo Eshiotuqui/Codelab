@@ -1,16 +1,21 @@
-import { AppSidebar } from '@/components/shared/app-sidebar'
-import { SearchInput } from '@/components/shared/search-input'
-import { Button } from '@/components/ui/button'
-import { SidebarInset, SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar'
-import { LogIn } from 'lucide-react'
-import Link from 'next/link'
-import type { ReactNode } from 'react'
+"use client"
+
+import { AppSidebar } from "@/components/shared/app-sidebar"
+import { SearchInput } from "@/components/shared/search-input"
+import { Button } from "@/components/ui/button"
+import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
+import { useUser } from "@clerk/nextjs"
+import { LogIn } from "lucide-react"
+import Link from "next/link"
+import type { ReactNode } from "react"
 
 type LayoutProps = {
   children: ReactNode
 }
 
 export default function Layout({ children }: LayoutProps) {
+  const { user } = useUser()
+
   return (
     <SidebarProvider>
       <AppSidebar />
@@ -20,12 +25,14 @@ export default function Layout({ children }: LayoutProps) {
             <SidebarTrigger className="flex md:hidden -ml-1" />
             <SearchInput />
           </div>
-          <Link href="/auth/sign-in">
-            <Button size="sm">
-              <LogIn />
-              Entrar
-            </Button>
-          </Link>
+          {!user && (
+            <Link href="/auth/sign-in">
+              <Button size="sm">
+                <LogIn />
+                Entrar
+              </Button>
+            </Link>
+          )}
         </header>
         <div className="flex flex-1 flex-col gap-6 p-6 overflow-auto">{children}</div>
       </SidebarInset>
