@@ -3,9 +3,9 @@ import Image from 'next/image'
 
 export default function Home() {
   return (
-    <div>
+    <>
       <h1>Codelab</h1>
       <Button>Click me</Button>
-    </div>
+    </>
   )
 }
