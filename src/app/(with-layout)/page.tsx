@@ -1,7 +1,8 @@
-import { Button } from '@/components/ui/button'
-import Image from 'next/image'
+import { Button } from "@/components/ui/button"
+import { prisma } from "@/lib/prisma"
+import Image from "next/image"
 
-export default function Home() {
+export default async function Home() {
   return (
     <>
       <h1>Codelab</h1>
