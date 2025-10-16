@@ -1,7 +1,11 @@
-import Image from "next/image";
+import { Button } from '@/components/ui/button'
+import Image from 'next/image'
 
 export default function Home() {
   return (
-    <h1>Codelab</h1>
-  );
+    <div>
+      <h1>Codelab</h1>
+      <Button>Click me</Button>
+    </div>
+  )
 }
