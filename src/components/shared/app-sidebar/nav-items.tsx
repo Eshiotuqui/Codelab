@@ -1,15 +1,16 @@
-import Link from 'next/link'
-import { Separator } from '@/components/ui/separator'
+"use client"
+import Link from "next/link"
+import { Separator } from "@/components/ui/separator"
 import {
   SidebarGroup,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from '@/components/ui/sidebar'
-import { useNavItems } from './hooks/useNavItems'
+} from "@/components/ui/sidebar"
+import { useNavItems } from "./hooks/useNavItems"
 
 export const NavItems = () => {
-  const { navItems, adminNavItems } = useNavItems()
+  const { navItems, adminNavItems, isAdmin } = useNavItems()
 
   const renderNavItems = (items: typeof navItems) =>
     items.map((item) => (
@@ -27,8 +28,13 @@ export const NavItems = () => {
     <SidebarGroup>
       <SidebarMenu>
         {renderNavItems(navItems)}
-        <Separator className="my-2" />
-        {renderNavItems(adminNavItems)}
+
+        {isAdmin && (
+          <>
+            <Separator className="my-2" />
+            {renderNavItems(adminNavItems)}
+          </>
+        )}
       </SidebarMenu>
     </SidebarGroup>
   )

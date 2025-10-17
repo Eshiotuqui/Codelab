@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useMemo } from "react"
 import {
   BookOpen,
   BookUp2,
@@ -7,7 +7,8 @@ import {
   SquareDashedBottomCode,
   Trophy,
   Users,
-} from 'lucide-react'
+} from "lucide-react"
+import { useUser } from "@clerk/nextjs"
 
 type NavItem = {
   label: string
@@ -16,21 +17,25 @@ type NavItem = {
 }
 
 export function useNavItems() {
+  const { user } = useUser()
+
+  const isAdmin = user?.publicMetadata?.role === "admin"
+
   const navItems: NavItem[] = useMemo(
     () => [
       {
-        label: 'Cursos',
-        path: '/',
+        label: "Cursos",
+        path: "/",
         icon: SquareDashedBottomCode,
       },
       {
-        label: 'Meus cursos',
-        path: '/my-courses',
+        label: "Meus cursos",
+        path: "/my-courses",
         icon: BookUp2,
       },
       {
-        label: 'Ranking',
-        path: '/ranking',
+        label: "Ranking",
+        path: "/ranking",
         icon: Trophy,
       },
     ],
@@ -40,23 +45,23 @@ export function useNavItems() {
   const adminNavItems: NavItem[] = useMemo(
     () => [
       {
-        label: 'Estatísticas',
-        path: '/admin',
+        label: "Estatísticas",
+        path: "/admin",
         icon: ChartArea,
       },
       {
-        label: 'Gerenciar cursos',
-        path: '/admin/courses',
+        label: "Gerenciar cursos",
+        path: "/admin/courses",
         icon: BookOpen,
       },
       {
-        label: 'Gerenciar usuários',
-        path: '/admin/users',
+        label: "Gerenciar usuários",
+        path: "/admin/users",
         icon: Users,
       },
       {
-        label: 'Gerenciar comentários',
-        path: '/admin/comments',
+        label: "Gerenciar comentários",
+        path: "/admin/comments",
         icon: MessageCircle,
       },
     ],
@@ -69,5 +74,6 @@ export function useNavItems() {
     navItems,
     adminNavItems,
     allItems,
+    isAdmin,
   }
 }
