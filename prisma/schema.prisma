@@ -59,7 +59,9 @@ model Course {
   createdAt        DateTime         @default(now())
   updatedAt        DateTime         @updatedAt
 
-  CourseModule CourseModule[]
+  modules CourseModule[]
+
+  
 
   @@map("courses")
 }
@@ -78,7 +80,7 @@ model CourseModule {
 
   createdAt    DateTime       @default(now())
   updatedAt    DateTime       @updatedAt
-  CourseLesson CourseLesson[]
+  lessons CourseLesson[]
 
   @@map("course_modules")
 }
